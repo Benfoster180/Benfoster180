@@ -15,7 +15,14 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 -->
 
+
+
 <br>
+<div>
+    <a href="https://linkedin.com/in/ben-f0ster" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank" />
+  </a>
+</div>
 
 <p align="center">
   <img src="https://skillicons.dev/icons?i=aws,mongodb,mysql,py" />
