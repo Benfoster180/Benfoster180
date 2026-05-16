@@ -1,38 +1,30 @@
 import os
-import json
 from datetime import datetime
 from stravalib.client import Client
 
-print("🚀 Script starting...")
+print("🚀 Starting Strava README update...")
 
 ACCESS_TOKEN = os.getenv("STRAVA_ACCESS_TOKEN")
 
 if not ACCESS_TOKEN:
     raise Exception("Missing STRAVA_ACCESS_TOKEN")
 
-print("🔐 Token loaded successfully")
-
 client = Client(access_token=ACCESS_TOKEN)
 
 current_year = datetime.now().year
 
-print("📡 Fetching activities from Strava...")
+print("📡 Fetching activities...")
 
-try:
-    activities = list(client.get_activities(limit=200))
-except Exception as e:
-    print("❌ Failed to fetch activities:", e)
-    raise
-
-print(f"📊 Total activities fetched: {len(activities)}")
+activities = list(client.get_activities(limit=200))
 
 year_activities = [
     a for a in activities
     if a.start_date and a.start_date.year == current_year
 ]
 
-print(f"📅 Activities this year: {len(year_activities)}")
+print(f"📊 Year activities: {len(year_activities)}")
 
+# counters
 runs = 0
 kms = 0
 gym = 0
@@ -48,7 +40,6 @@ def is_jui(activity):
 
 
 for a in year_activities:
-
     activity_type = getattr(a.type, "root", "")
 
     if activity_type == "Run":
@@ -63,30 +54,51 @@ for a in year_activities:
         jui += 1
 
 
-stats = {
-    "year": current_year,
-    "runs": runs,
-    "run_km": round(kms, 2),
-    "gym_sessions": gym,
-    "jui_jitsu_sessions": jui
-}
+print("📦 Stats calculated")
 
-print("📦 Final stats:", stats)
+# -----------------------------
+# BUILD MARKDOWN BLOCK
+# -----------------------------
+start = "<!-- STRAVA_START -->"
+end = "<!-- STRAVA_END -->"
 
-# ✅ Always write to repo root (GitHub Actions safe)
+stats_block = f"""
+{start}
+
+## 🏃 Strava Stats (Auto-updated)
+
+- 📅 Year: {current_year}
+- 🏃 Runs: {runs}
+- 📏 Distance: {round(kms, 2)} km
+- 🏋️ Gym sessions: {gym}
+- 🥋 Jiu Jitsu sessions: {jui}
+
+{end}
+"""
+
+# -----------------------------
+# UPDATE README
+# -----------------------------
 repo_root = os.getenv("GITHUB_WORKSPACE", os.getcwd())
-file_path = os.path.join(repo_root, "strava_stats.json")
+readme_path = os.path.join(repo_root, "README.md")
 
-print("📝 Writing to:", file_path)
+print("📝 Updating README:", readme_path)
 
-try:
-    with open(file_path, "w") as f:
-        json.dump(stats, f, indent=2)
+if not os.path.exists(readme_path):
+    raise Exception("README.md not found")
 
-    print("✅ SUCCESS: strava_stats.json created")
+with open(readme_path, "r", encoding="utf-8") as f:
+    content = f.read()
 
-    print("📁 Files in workspace:", os.listdir(repo_root))
+if start in content and end in content:
+    before = content.split(start)[0]
+    after = content.split(end)[1]
+    new_content = before + stats_block + after
+else:
+    # fallback append
+    new_content = content + "\n\n" + stats_block
 
-except Exception as e:
-    print("❌ File write failed:", e)
-    raise
+with open(readme_path, "w", encoding="utf-8") as f:
+    f.write(new_content)
+
+print("✅ README successfully updated")
