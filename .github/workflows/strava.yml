@@ -3,7 +3,7 @@ name: Update Strava Stats
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 6 * * *" # every 24 hours at 06:00 UTC
+    - cron: "0 1 * * *" # every 24 hours at 01:00 UTC
 
 permissions:
   contents: write
@@ -24,11 +24,11 @@ jobs:
       - name: Install dependencies
         run: pip install requests python-dotenv stravalib
 
-      - name: Debug workspace (IMPORTANT)
+      - name: Debug workspace (before)
         run: |
-          echo "Current directory:"
+          echo "PWD:"
           pwd
-          echo "Files before running script:"
+          echo "Files before:"
           ls -R
 
       - name: Run script
@@ -38,23 +38,19 @@ jobs:
           STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
         run: python strava.py
 
-      - name: Debug workspace after script
+      - name: Debug workspace (after)
         run: |
-          echo "Files after running script:"
+          echo "Files after:"
           ls -R
 
-        - name: Commit results
-          run: |
-            ls -la
+      - name: Commit README changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
 
-            if [ ! -f strava_stats.json ]; then
-              echo "❌ strava_stats.json was NOT created"
-              exit 1
-            fi
+          git add README.md
 
-            git config --global user.name "github-actions"
-            git config --global user.email "github-actions@github.com"
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
 
-            git add strava_stats.json
-            git commit -m "update strava stats"
-            git push
+          git commit -m "update strava stats"
+          git push
