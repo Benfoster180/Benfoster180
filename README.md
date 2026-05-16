@@ -5,12 +5,25 @@
 
 ---
 
-## 🔗 Connect with me
+## 🧠 About Me
+
+---
+## 🛠️ Current Projects
+
+---
+
+### 📖 What I'm Currently Learning
+
+---
+
+## 🔗 Connect With Me
 
 <p>
   <a href="https://linkedin.com/in/ben-f0ster" target="_blank">
     <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/>
   </a>
+
+  <img src="https://komarev.com/ghpvc/?username=Benfoster180&color=c4955a&style=for-the-badge&label=profile+views"/>
 </p>
 
 ---
@@ -35,7 +48,7 @@
 
 <!-- STRAVA_START -->
 
-## 🏃 Strava Stats (2026)  (Auto-updated)
+## 🏃 Strava Stats (2026) (Auto-updated)
 
 - 🏃 Runs: 6, Distance: 23.22 km
 - 🏋️ Gym sessions: 16
