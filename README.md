@@ -32,14 +32,14 @@
 
 ---
 
+
 <!-- STRAVA_START -->
 
 ## 🏃 Strava Stats (Auto-updated)
 
-- 📅 Year: 2026
-- 🏃 Runs: 6
-- 📏 Distance: 23.22 km
+- 🏃 Runs: 6, Distance: 23.22 km
 - 🏋️ Gym sessions: 16
 - 🥋 Jiu Jitsu sessions: 10
 
 <!-- STRAVA_END -->
+
