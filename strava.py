@@ -66,7 +66,7 @@ end = "<!-- STRAVA_END -->"
 stats_block = f"""
 {start}
 
-header = f"## 🏃 Strava Stats ({current_year})  (Auto-updated)"
+## 🏃 Strava Stats ({current_year})  (Auto-updated)
 
 - 🏃 Runs: {runs}, Distance: {round(kms, 2)} km
 - 🏋️ Gym sessions: {gym}
