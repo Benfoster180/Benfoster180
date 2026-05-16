@@ -1,4 +1,5 @@
 import os
+import json
 from datetime import datetime
 from dotenv import load_dotenv
 from stravalib.client import Client
@@ -48,3 +49,6 @@ stats = {
 }
 
 print(stats)
+
+with open("strava_stats.json", "w") as f:
+    json.dump(stats, f, indent=2)
