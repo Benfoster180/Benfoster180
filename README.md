@@ -35,15 +35,17 @@
 
 
 
+
 <!-- STRAVA_START -->
 
-f"## 🏃 Strava Stats (2026)  (Auto-updated)"
+## 🏃 Strava Stats (2026)  (Auto-updated)
 
 - 🏃 Runs: 6, Distance: 23.22 km
 - 🏋️ Gym sessions: 16
 - 🥋 Jiu Jitsu sessions: 10
 
 <!-- STRAVA_END -->
+
 
 
 
