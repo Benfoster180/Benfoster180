@@ -1,10 +1,7 @@
-## Hi there 👋
-
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&height=300&color=004225&text=Hello%20I'm%20Ben&section=header&reversal=false&fontColor=F5F5F0&textBg=false" alt="header"/> 
 <!--
 **Benfoster180/Benfoster180** is a ✨ _special_ ✨ repository because its `README.md` appears on your GitHub profile.
 -->
-
-<p>More improvements to come soon 🚀</p>
 
 ---
 
@@ -46,6 +43,4 @@
 
 <!-- STRAVA_END -->
 
-
-
-
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&height=300&color=004225&section=footer&reversal=false&fontColor=F5F5F0&textBg=false" alt="footer"/>
