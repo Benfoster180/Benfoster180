@@ -53,6 +53,7 @@ for a in year_activities:
     elif activity_type == "Workout" and is_jui(a):
         jui += 1
 
+current_year = datetime.now().year
 
 print("📦 Stats calculated")
 
@@ -65,7 +66,7 @@ end = "<!-- STRAVA_END -->"
 stats_block = f"""
 {start}
 
-## 🏃 Strava Stats (Auto-updated)
+header = f"## 🏃 Strava Stats ({current_year})  (Auto-updated)"
 
 - 🏃 Runs: {runs}, Distance: {round(kms, 2)} km
 - 🏋️ Gym sessions: {gym}
