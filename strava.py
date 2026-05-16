@@ -67,9 +67,7 @@ stats_block = f"""
 
 ## 🏃 Strava Stats (Auto-updated)
 
-- 📅 Year: {current_year}
-- 🏃 Runs: {runs}
-- 📏 Distance: {round(kms, 2)} km
+- 🏃 Runs: {runs}, Distance: {round(kms, 2)} km
 - 🏋️ Gym sessions: {gym}
 - 🥋 Jiu Jitsu sessions: {jui}
 

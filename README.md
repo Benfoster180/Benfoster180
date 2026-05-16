@@ -32,15 +32,6 @@
 
 ---
 
-## 🏃 Strava Stats (Live)
-
-<!-- STRAVA START -->
-
-- Loading latest stats...
-<!-- STRAVA END -->
-
-
-
 <!-- STRAVA_START -->
 
 ## 🏃 Strava Stats (Auto-updated)
