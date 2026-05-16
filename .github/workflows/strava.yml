@@ -43,20 +43,18 @@ jobs:
           echo "Files after running script:"
           ls -R
 
-      - name: Commit changes
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
+        - name: Commit results
+          run: |
+            ls -la
 
-          if [ ! -f strava_stats.json ]; then
-            echo "❌ ERROR: strava_stats.json was NOT created"
-            exit 1
-          fi
+            if [ ! -f strava_stats.json ]; then
+              echo "❌ strava_stats.json was NOT created"
+              exit 1
+            fi
 
-          git add strava_stats.json
+            git config --global user.name "github-actions"
+            git config --global user.email "github-actions@github.com"
 
-          git diff --cached --quiet && echo "No changes to commit" && exit 0
-
-          git commit -m "update strava stats"
-
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
+            git add strava_stats.json
+            git commit -m "update strava stats"
+            git push

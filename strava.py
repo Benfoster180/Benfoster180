@@ -1,32 +1,34 @@
 import os
 import json
 from datetime import datetime
-from dotenv import load_dotenv
 from stravalib.client import Client
 
-load_dotenv()
+print("🚀 Script starting...")
 
 ACCESS_TOKEN = os.getenv("STRAVA_ACCESS_TOKEN")
 
 if not ACCESS_TOKEN:
     raise Exception("Missing STRAVA_ACCESS_TOKEN")
 
-print("✅ Script started")
-print("Token loaded:", bool(ACCESS_TOKEN))
+print("🔐 Token loaded successfully")
 
 client = Client(access_token=ACCESS_TOKEN)
 
 current_year = datetime.now().year
 
-print("📡 Fetching activities...")
+print("📡 Fetching activities from Strava...")
 
-activities = list(client.get_activities(limit=200))
+try:
+    activities = list(client.get_activities(limit=200))
+except Exception as e:
+    print("❌ Failed to fetch activities:", e)
+    raise
 
 print(f"📊 Total activities fetched: {len(activities)}")
 
 year_activities = [
     a for a in activities
-    if a.start_date.year == current_year
+    if a.start_date and a.start_date.year == current_year
 ]
 
 print(f"📅 Activities this year: {len(year_activities)}")
@@ -38,22 +40,26 @@ jui = 0
 
 
 def is_jui(activity):
+    name = (activity.name or "").lower()
     return (
-        activity.type.root == "Workout"
-        and activity.name
-        and activity.name.lower().startswith("jui")
+        getattr(activity.type, "root", "") == "Workout"
+        and name.startswith("jui")
     )
 
 
 for a in year_activities:
-    if a.type.root == "Run":
-        runs += 1
-        kms += a.distance / 1000
 
-    elif a.type.root == "WeightTraining":
+    activity_type = getattr(a.type, "root", "")
+
+    if activity_type == "Run":
+        runs += 1
+        if a.distance:
+            kms += a.distance / 1000
+
+    elif activity_type == "WeightTraining":
         gym += 1
 
-    elif a.type.root == "Workout" and is_jui(a):
+    elif activity_type == "Workout" and is_jui(a):
         jui += 1
 
 
@@ -65,21 +71,22 @@ stats = {
     "jui_jitsu_sessions": jui
 }
 
-print("📦 Stats generated:", stats)
+print("📦 Final stats:", stats)
 
-# ✅ ALWAYS write to GitHub workspace root
+# ✅ Always write to repo root (GitHub Actions safe)
 repo_root = os.getenv("GITHUB_WORKSPACE", os.getcwd())
 file_path = os.path.join(repo_root, "strava_stats.json")
 
-print("📝 Writing file to:", file_path)
+print("📝 Writing to:", file_path)
 
 try:
     with open(file_path, "w") as f:
         json.dump(stats, f, indent=2)
 
-    print("✅ FILE CREATED SUCCESSFULLY")
-    print("📁 Workspace files:", os.listdir(repo_root))
+    print("✅ SUCCESS: strava_stats.json created")
+
+    print("📁 Files in workspace:", os.listdir(repo_root))
 
 except Exception as e:
-    print("❌ FAILED TO WRITE FILE:", str(e))
+    print("❌ File write failed:", e)
     raise
