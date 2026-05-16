@@ -15,12 +15,16 @@ client = Client(access_token=ACCESS_TOKEN)
 
 current_year = datetime.now().year
 
-activities = client.get_activities(limit=200)
+print("Fetching activities...")
+
+activities = list(client.get_activities(limit=200))
 
 year_activities = [
     a for a in activities
     if a.start_date.year == current_year
 ]
+
+print(f"Total activities this year: {len(year_activities)}")
 
 runs = 0
 kms = 0
@@ -30,7 +34,8 @@ jui = 0
 
 def is_jui(activity):
     return (
-        str(activity.type.root) == "Workout"
+        activity.type.root == "Workout"
+        and activity.name
         and activity.name.lower().startswith("jui")
     )
 
@@ -55,14 +60,22 @@ stats = {
     "jui_jitsu_sessions": jui
 }
 
-# 🔥 DEBUG (important for GitHub Actions)
 print("Stats generated:", stats)
-print("Working directory:", os.getcwd())
 
-# ✅ WRITE FILE (this is what fixes your error)
-file_path = os.path.join(os.getcwd(), "strava_stats.json")
+# 🔥 ALWAYS write into repo directory (safe for GitHub Actions)
+repo_root = os.getenv("GITHUB_WORKSPACE", os.getcwd())
+file_path = os.path.join(repo_root, "strava_stats.json")
 
-with open(file_path, "w") as f:
-    json.dump(stats, f, indent=2)
+print("Writing to:", file_path)
 
-print("Saved file:", file_path)
+try:
+    with open(file_path, "w") as f:
+        json.dump(stats, f, indent=2)
+
+    print("✅ File written successfully")
+
+    print("Repo contents:", os.listdir(repo_root))
+
+except Exception as e:
+    print("❌ Failed to write file:", str(e))
+    raise
