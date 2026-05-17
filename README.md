@@ -7,12 +7,19 @@
 
 ## 🧠 About Me
 
+I'm an apprentice Network Engineer with a focus on cloud development. I’ve got 5 years of industry experience working within large tech organisations, with hands-on experience across cloud infrastructure, data pipelines, analytics, and automation.
+
 ---
+
 ## 🛠️ Current Projects
 
+- [Strava Data for Your GitHub README](https://github.com/Benfoster180/strava-data-for-readme) – A project that connects Strava activity data to a GitHub README using the Strava API.
+
 ---
 
-### 📖 What I'm Currently Learning
+## 📖 What I'm Currently Learning
+
+I'm currently learning Swift.
 
 ---
 
