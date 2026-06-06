@@ -53,14 +53,16 @@ I'm currently learning Swift.
 
 
 
+
 <!-- STRAVA_START -->
 
 ## 🏃 Strava Stats (2026) (Auto-updated)
 
-- 🏃 Runs: 6, Distance: 23.22 km
-- 🏋️ Gym sessions: 16
-- 🥋 Jiu Jitsu sessions: 10
+- 🏃 Runs: 7, Distance: 26.54 km
+- 🏋️ Gym sessions: 18
+- 🥋 Jiu Jitsu sessions: 11
 
 <!-- STRAVA_END -->
+
 
 <img width=100% src="https://capsule-render.vercel.app/api?type=waving&height=300&color=004225&section=footer&reversal=false&fontColor=F5F5F0&textBg=false" alt="footer"/>
